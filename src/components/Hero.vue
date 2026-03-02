@@ -9,7 +9,7 @@
       <h1 class="name hero-anim">PHILASANDE BHANI</h1>
       <p class="tagline hero-anim">Software Developer | Java / Full Stack Developer</p>
       <p class="location hero-anim">Gauteng, South Africa · 4+ years of working experience</p>
-      <p class="salary hero-anim">Preferred salary: R25,000+ monthly, or R300,000+ annually</p>
+      <p class="salary hero-anim">Preferred salary: R35,000+ monthly, or R400,000+ annually</p>
       <p class="intro hero-anim">
         With a <strong>National Diploma in Information Technology</strong> and experience as a Java Developer,
         I bring a strong foundation in software development and problem-solving. My expertise spans
@@ -37,14 +37,17 @@
 <style scoped>
 .hero {
   position: relative;
+  height: 100vh;
   min-height: 100vh;
+  max-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 6rem var(--space-inline) 4rem;
+  padding: 5rem var(--space-inline) 4rem;
   overflow: hidden;
+  box-sizing: border-box;
 }
 .hero-bg {
   position: absolute;
@@ -74,7 +77,7 @@
 .hero-content {
   position: relative;
   z-index: 1;
-  max-width: 640px;
+  max-width: 880px;
 }
 
 .hero-anim {
