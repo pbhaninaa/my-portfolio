@@ -1,4 +1,10 @@
 import { AGENT_PROFILE } from '../data/agentProfile'
+import {
+  getAge,
+  getYearsOfExperience,
+  getPreferredSalaryMonthly,
+  getPreferredSalaryAnnual,
+} from './useProfileCalculations'
 
 const OPENAI_API_URL = 'https://api.openai.com/v1/chat/completions'
 
@@ -6,25 +12,38 @@ function getApiKey(): string {
   return (import.meta.env.VITE_OPENAI_API_KEY as string) || ''
 }
 
+function formatCurrency(value: number): string {
+  return 'R' + value.toLocaleString('en-ZA', { maximumFractionDigits: 0 })
+}
+
 /**
  * Simple local fallback when no API key: match keywords and return short answers.
+ * Uses calculated age, years of experience, and salary.
  */
 function getLocalAnswer(question: string): string | null {
   const q = question.toLowerCase().trim()
+  const years = getYearsOfExperience()
+  const age = getAge()
+  const monthly = getPreferredSalaryMonthly()
+  const annual = getPreferredSalaryAnnual()
+
   if (q.includes('who') && (q.includes('you') || q.includes('philasande') || q.includes('phila'))) {
-    return "I'm Philasande Bhani, a Software Developer and Java Full Stack Developer with 4+ years of experience, based in Gauteng, South Africa."
+    return `I'm Philasande Bhani, a Software Developer and Java Full Stack Developer with ${years}+ years of experience, based in Gauteng, South Africa.`
   }
   if (q.includes('experience') || q.includes('years') || q.includes('work')) {
-    return "Philasande has 4+ years of experience. He's currently a Java Full-Stack Developer at Reverside, and previously trained at Geeks4Learning and MLab (CodeTribe)."
+    return `Philasande has ${years}+ years of experience (career started 2021). He's currently a Java Full-Stack Developer at Reverside, and previously trained at Geeks4Learning and MLab (CodeTribe).`
+  }
+  if (q.includes('age') || (q.includes('how') && q.includes('old'))) {
+    return `Philasande was born on 1 July 1998 and is ${age} years old.`
   }
   if (q.includes('skill') || q.includes('tech') || q.includes('stack')) {
-    return "His main tech stack includes Java, Spring Boot, Angular, React, Vue.js, React Native, Android, MySQL, and tools like Git, Docker, and Azure. He works across frontend, backend, and mobile."
+    return "His main tech stack (from his portfolio projects) includes Java, Spring Boot, Angular, React, Vue.js, React Native, Android, MySQL, SQLite, and tools like Git. He works across frontend, backend, and mobile."
   }
   if (q.includes('contact') || q.includes('email') || q.includes('phone') || q.includes('reach')) {
     return "You can reach Philasande at pbhanina@gmail.com or 078 214 1216. LinkedIn: linkedin.com/in/mr-p-bhani/"
   }
   if (q.includes('salary') || q.includes('pay') || q.includes('rate')) {
-    return "Preferred salary: R25,000+ monthly or R300,000+ annually."
+    return `Preferred salary (market-related, based on ${years} years of experience): ${formatCurrency(monthly)}+ monthly or ${formatCurrency(annual)}+ annually.`
   }
   if (q.includes('available') || q.includes('notice') || q.includes('start')) {
     return "He's available immediately, with a 1-month notice period to his current employer (or 1 week in some cases). Prefers permanent roles, remote or anywhere in South Africa."

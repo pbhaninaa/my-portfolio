@@ -8,8 +8,8 @@
       <p class="greeting hero-anim">Hi, I'm</p>
       <h1 class="name hero-anim">PHILASANDE BHANI</h1>
       <p class="tagline hero-anim">Software Developer | Java / Full Stack Developer</p>
-      <p class="location hero-anim">Gauteng, South Africa · 4+ years of working experience</p>
-      <p class="salary hero-anim">Preferred salary: R35,000+ monthly, or R400,000+ annually</p>
+      <p class="location hero-anim">Gauteng, South Africa · {{ yearsOfExperience }}+ years of working experience</p>
+      <p class="salary hero-anim">Preferred salary: {{ preferredSalaryMonthlyFormatted }}+ monthly, or {{ preferredSalaryAnnualFormatted }}+ annually</p>
       <p class="intro hero-anim">
         With a <strong>National Diploma in Information Technology</strong> and experience as a Java Developer,
         I bring a strong foundation in software development and problem-solving. My expertise spans
@@ -33,6 +33,12 @@
     </a>
   </section>
 </template>
+
+<script setup lang="ts">
+import { useProfileCalculations } from '../composables/useProfileCalculations'
+
+const { yearsOfExperience, preferredSalaryMonthlyFormatted, preferredSalaryAnnualFormatted } = useProfileCalculations()
+</script>
 
 <style scoped>
 .hero {

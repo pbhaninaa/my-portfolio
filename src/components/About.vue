@@ -3,11 +3,11 @@
     <h2 class="section-title" :class="{ visible: isVisible }">About <span class="accent">Me</span></h2>
     <div class="about-inner">
       <p class="lead" :class="{ visible: isVisible }">
-        I am <strong>Philasande Bhani</strong>, a young graduate of 28 years. I hold a National Diploma in Information Technology
+        I am <strong>Philasande Bhani</strong>, a young graduate of {{ age }} years. I hold a National Diploma in Information Technology
         and am determined to become one of the best in the field.
       </p>
       <p class="about-p" :class="{ visible: isVisible }">
-        Over the past 4 years, I worked as a Developer at a software development firm, where I gained valuable insights
+        Over the past {{ yearsOfExperience }} years, I worked as a Developer at a software development firm, where I gained valuable insights
         into how successful companies operate. During this time, I honed my skills in developing and maintaining software
         programs, as well as making improvements to enhance functionality.
       </p>
@@ -65,9 +65,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useScrollReveal } from '../composables/useScrollReveal'
+import { useProfileCalculations } from '../composables/useProfileCalculations'
 
 const sectionRef = ref<HTMLElement | null>(null)
 const isVisible = useScrollReveal(sectionRef)
+const { age, yearsOfExperience } = useProfileCalculations()
 </script>
 
 <style scoped>

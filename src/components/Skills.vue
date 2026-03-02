@@ -20,36 +20,47 @@
       <ul class="roles-list">
         <li><strong>Full Stack Developer:</strong> Java, Android, Angular, React, Vue</li>
         <li><strong>Front End Developer:</strong> Angular, React, Vue, Android</li>
-        <li><strong>Back End Developer:</strong> Java, Node.js, MySQL, SQL, NoSQL, MongoDB</li>
+        <li><strong>Back End Developer:</strong> Java, Spring Boot, MySQL</li>
       </ul>
       <div class="tech-stack-summary">
-        <p><strong>Tech Stack:</strong> Programming: Java, JavaScript · Mobile: Android, React Native · Frontend: Angular, React, Vue · Backend: Node.js · Databases: MySQL, SQL, NoSQL, MongoDB</p>
+        <p><strong>Tech Stack (from portfolio projects):</strong> Java, Spring Boot, JavaScript · Mobile: Android, React Native · Frontend: Angular, React, Vue · Databases: MySQL, SQLite, Microsoft Access</p>
       </div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useScrollReveal } from '../composables/useScrollReveal'
+import { SKILLS_IN_PROJECTS } from '../data/profileConstants'
 
 const sectionRef = ref<HTMLElement | null>(null)
 const isVisible = useScrollReveal(sectionRef)
 
-const skillGroups = [
+const allSkillGroups = [
   {
     category: 'Tools and Technologies',
-    items: ['Atlassian', 'Jira', 'BitBucket', 'Git', 'GitHub', 'GitLab', 'Slack', 'Microsoft Teams', 'Trello', 'Azure', 'Docker', 'Microsoft Office'],
+    items: ['Git', 'GitHub', 'BitBucket', 'Jira', 'Slack', 'Azure', 'Docker'],
   },
   {
     category: 'Software Development',
-    items: ['Java', 'VB.Net', 'Node.js', 'Angular', 'React', 'React Native', 'Android', 'JavaScript', 'TypeScript', 'HTML5', 'CSS', 'Bootstrap', 'JSON', 'Spring Boot', 'Hibernate', 'XML', 'Web APIs', 'Web Services'],
+    items: ['Java', 'Spring Boot', 'VB.Net', 'Angular', 'AngularJS', 'React', 'ReactJS', 'Vue 3', 'Vue.js', 'React Native', 'Android', 'JavaScript', 'HTML5', 'CSS', 'JWT', 'Stripe'],
   },
   {
     category: 'Databases',
-    items: ['MongoDB', 'NoSQL', 'MySQL', 'SQL Workbench', 'Postgres', 'Microsoft Access'],
+    items: ['MySQL', 'Microsoft Access', 'SQLite'],
   },
 ]
+
+// Only show skills that appear in portfolio projects
+const skillGroups = computed(() =>
+  allSkillGroups
+    .map((group) => ({
+      ...group,
+      items: group.items.filter((skill) => SKILLS_IN_PROJECTS.has(skill)),
+    }))
+    .filter((group) => group.items.length > 0)
+)
 </script>
 
 <style scoped>
