@@ -44,4 +44,8 @@ export const SKILLS_IN_PROJECTS = new Set([
   'GitHub',
   'JWT',
   'Stripe',
+  'GitLab',
+  'Atlassian',
+  'BitBucket',
+  'Jira'
 ])
