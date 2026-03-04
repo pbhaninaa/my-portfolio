@@ -34,10 +34,26 @@ const sectionRef = ref<HTMLElement | null>(null)
 const isVisible = useScrollReveal(sectionRef)
 
 const jobs = [
+{
+  role: 'Full Stack Developer (Java, C#, Vue, Android)',
+  company: 'Dashpay',
+  period: 'Current Employer',
+  bullets: [
+    'Developing and maintaining full-stack applications using Java (Spring Boot), C# (ASP.NET Core 8 Web API), and Vue.js (Vue 2).',
+    'Designing and implementing scalable RESTful APIs with secure authentication (JWT).',
+    'Building backend services using clean architecture principles, MediatR, and Ardalis.Result patterns.',
+    'Developing Android applications using Java and integrating them with backend services.',
+    'Working with SQL databases (SQL Server, MySQL) and optimizing complex queries and stored procedures.',
+    'Implementing unit testing and mocking frameworks to ensure high code quality and reliability.',
+    'Translating business requirements into technical solutions aligned with company goals.',
+    'Maintaining and enhancing POS and merchant-based platforms across web and mobile.',
+    'Participating in code reviews, debugging production issues, and improving system performance.',
+  ],
+},
   {
     role: 'Java Full-Stack Developer',
     company: 'Reverside',
-    period: 'Current Employer',
+    period: '',
     bullets: [
       'Designing and implementing Java-based applications.',
       'Analyzing user requirements to inform application design.',
