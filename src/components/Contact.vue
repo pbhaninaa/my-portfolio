@@ -34,7 +34,7 @@
       </ul>
     </div>
     <footer class="footer" :class="{ visible: isVisible }">
-      <p>© {{ new Date().getFullYear() }} Philasande Bhani. Built with Vue.</p>
+      <p>© {{ new Date().getFullYear() }} Philasande Bhani.</p>
     </footer>
   </section>
 </template>

@@ -115,7 +115,7 @@ const projects = [
     tech: 'Vue 3 (web), Spring Boot (REST API, JWT, MySQL), React Native (mobile)',
     description: 'Full-stack service marketplace connecting customers with mechanics and car wash providers. Clients request mechanic assistance or book car washes (in-house or call-out, with optional towing); providers see new requests in real time with sound alerts via Server-Sent Events. Role-based dashboards (client, mechanic, car wash, admin), Stripe payments with platform fees, email/SMS notifications, and reporting. Built with Vue 3, Spring Boot, and React Native; admins manage users, fees, and job assignments.',
     tags: ['Vue 3', 'React Native', 'Spring Boot', 'MySQL', 'JWT', 'Stripe', 'Server-Sent Events'],
-    link: '#',
+    link: 'https://mechanic-management-806bi8xrb-pbhanina-5058s-projects.vercel.app/',
   },
   {
     name: 'High School Application System',
