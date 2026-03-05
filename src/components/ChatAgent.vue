@@ -3,8 +3,8 @@
     <button
       type="button"
       class="chat-toggle"
-      :aria-label="open ? 'Close chat' : 'Ask about Philasande'"
-      @click="open = !open"
+      :aria-label="open ? 'Close chat' : 'Ask about ' + profile.personal.fullName"
+      @click="closeIfOpen(); open = !open"
     >
       <span v-if="!open" class="chat-icon">?</span>
       <span v-else class="chat-icon-close">×</span>
@@ -13,12 +13,12 @@
     <Transition name="panel">
       <div v-if="open" class="chat-panel">
         <div class="chat-header">
-          <h3>Ask about Philasande</h3>
-          <p class="chat-subtitle">I can answer questions about his experience, skills, and contact.</p>
+          <h3>Ask about {{ profile.personal.fullName }}</h3>
+          <p class="chat-subtitle">I can answer questions about their experience, skills, and contact.</p>
         </div>
         <div ref="messagesRef" class="chat-messages">
           <div v-if="messages.length === 0" class="chat-welcome">
-            <p>Hi! Ask me anything about Philasande—his experience, skills, projects, or how to get in touch.</p>
+            <p>Hi! Ask me anything about {{ profile.personal.fullName }}—experience, skills, projects, or how to get in touch.</p>
           </div>
           <div
             v-for="(m, i) in messages"
@@ -55,6 +55,11 @@
 <script setup lang="ts">
 import { ref, watch, nextTick } from 'vue'
 import { askAgent } from '../composables/useAgent'
+import { useLightbox } from '../composables/useLightbox'
+import { portfolioProfile } from '../data'
+
+const profile = portfolioProfile
+const { closeIfOpen } = useLightbox()
 
 const open = ref(false)
 const input = ref('')

@@ -1,57 +1,60 @@
 /**
- * Profile context for the "Ask about me" chat agent.
+ * Agent system prompt built from portfolio profile.
  * Used as system context for the AI and for local fallback answers.
  */
-export const AGENT_PROFILE = `
-You are a helpful assistant representing Philasande Bhani. Answer questions about him based only on the following information. Be concise and friendly. If asked something not covered below, say you don't have that information and suggest visiting the portfolio or contacting him.
+import { portfolioProfile } from './index'
+import { getAge, getYearsOfExperience, getPreferredSalaryMonthly, getPreferredSalaryAnnual } from '../composables/useProfileCalculations'
 
-## Philasande Bhani – Summary
-- Software Developer | Java / Full Stack Developer
-- DOB: 1 July 1998 (age increments each year on this date)
-- Professional experience: from 2021, so years of experience = current year minus 2021
-- Preferred salary: market-related, base R25,000/month + R2,500 per year of experience (e.g. 4 years ≈ R35,000/month, R420,000/year)
-- Location: Gauteng, South Africa
-- Phone: 078 214 1216
-- Email: pbhanina@gmail.com
-- LinkedIn: https://www.linkedin.com/in/mr-p-bhani/
+function formatCurrency(value: number): string {
+  return 'R' + value.toLocaleString('en-ZA', { maximumFractionDigits: 0 })
+}
+
+function buildAgentPrompt(): string {
+  if (portfolioProfile.agentPrompt) return portfolioProfile.agentPrompt.trim()
+
+  const p = portfolioProfile.personal
+  const age = getAge()
+  const years = getYearsOfExperience()
+  const monthly = getPreferredSalaryMonthly()
+  const annual = getPreferredSalaryAnnual()
+
+  const dobStr = p.dob.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+
+  let text = `
+You are a helpful assistant representing ${p.fullName}. Answer questions about them based only on the following information. Be concise and friendly. If asked something not covered below, say you don't have that information and suggest visiting the portfolio or contacting them.
+
+## ${p.fullName} – Summary
+- ${p.tagline}
+- DOB: ${dobStr} (age ${age})
+- Professional experience: from ${portfolioProfile.personal.careerStartYear}, ${years}+ years
+- Preferred salary: market-related, ${formatCurrency(portfolioProfile.salary.baseMonthly)}/month + ${formatCurrency(portfolioProfile.salary.incrementPerYear)} per year of experience (e.g. ${years} years ≈ ${formatCurrency(monthly)}/month, ${formatCurrency(annual)}/year)
+- Location: ${p.location}
+- Phone: ${p.phone}
+- Email: ${p.email}
+- LinkedIn: ${p.linkedinUrl}
 
 ## Position & availability
-- Position applied for: Software Developer
-- Availability: Immediately, with 1-month notice period to current employer (or 1 week as per some materials)
-- EE Status: African Black Male | Nationality: South African
-- Preferred: Remote (anywhere), Hybrid or Local in any South African province
-- Work authorisation: Africa 100%; globally via remote
-- Contract: Permanent
+- Preferred: Remote, Hybrid or Local as per portfolio
+- Work authorisation: ${portfolioProfile.about.preferences.workAuthAfrica} (Africa); ${portfolioProfile.about.preferences.workAuthGlobal} (globally)
 
 ## Experience
-- Reverside – Java Full-Stack Developer (current): Designing/implementing Java apps, requirements analysis, client support.
-- Geeks4Learning – Java Full-Stack Developer Trainee: 12-month program (NQF 5, Microsoft-aligned courses, project simulation).
-- MLab (CodeTribe) – React Front-End Developer Trainee: 12-month program (web development, QA).
+${portfolioProfile.experience.map((j) => `- ${j.company} – ${j.role}${j.period ? ` (${j.period})` : ''}${j.description ? ': ' + j.description.slice(0, 120) + '...' : ''}`).join('\n')}
 
 ## Education
-- System development NQF5 (Learnership, 2022)
-- National Diploma in Information Technology, Walter Sisulu University (2017–2020)
-- Matric/Grade 12, Ntabezulu Senior Secondary School (2013–2015)
-- Award: Under The Rock Star Award, 2025
+${portfolioProfile.education.map((e) => `- ${e.name}, ${e.institution} (${e.year})`).join('\n')}
+${portfolioProfile.awards?.length ? '\nAwards: ' + portfolioProfile.awards.join('; ') : ''}
 
-## Skills
-- Languages: Java, JavaScript, TypeScript, VB.Net, C#
-- Frameworks: Spring Boot, Angular, React, Vue.js, React Native
-- Mobile: Android (Java/Kotlin), React Native
-- Web: HTML5, CSS3, JavaScript, Bootstrap, ASP.NET
-- Databases: MySQL, SQLite, PostgreSQL
-- Tools: Git, GitHub, Bitbucket, Docker, Postman, Jenkins
-- Cloud/DevOps: Microsoft Azure, Azure DevOps
-- Practices: Agile & Scrum, RESTful APIs, CI/CD
+## Skills (from projects)
+${[...new Set(portfolioProfile.projects.flatMap((pr) => pr.tags))].join(', ')}
 
-## Projects (examples)
-- MechConnect: Full-stack marketplace for mechanics & car wash (Vue 3, Spring Boot, React Native, Stripe, SSE).
-- High School Application System (AngularJS, Spring Boot).
-- Hotel Management System (Spring Boot, Angular, MySQL).
-- Covid-19 App (ReactJS).
-- Weather App, Job Finder (React Native).
-- POS Application (Android, SQLite).
+## Projects
+${portfolioProfile.projects.map((pr) => `- ${pr.name}: ${pr.description} (${pr.tech})`).join('\n')}
 
 ## Preferred salary
-R25,000+ monthly or R300,000+ annually.
+${formatCurrency(monthly)}+ monthly or ${formatCurrency(annual)}+ annually.
 `.trim()
+
+  return text
+}
+
+export const AGENT_PROFILE = buildAgentPrompt()

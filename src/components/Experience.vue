@@ -29,55 +29,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useScrollReveal } from '../composables/useScrollReveal'
+import { portfolioProfile } from '../data'
 
+const profile = portfolioProfile
 const sectionRef = ref<HTMLElement | null>(null)
 const isVisible = useScrollReveal(sectionRef)
 
-const jobs = [
-{
-  role: 'Full Stack Developer (Java, C#, Vue, Android)',
-  company: 'Dashpay',
-  period: 'Current Employer',
-  bullets: [
-    'Developing and maintaining full-stack applications using Java (Spring Boot), C# (ASP.NET Core 8 Web API), and Vue.js (Vue 2).',
-    'Designing and implementing scalable RESTful APIs with secure authentication (JWT).',
-    'Building backend services using clean architecture principles, MediatR, and Ardalis.Result patterns.',
-    'Developing Android applications using Java and integrating them with backend services.',
-    'Working with SQL databases (SQL Server, MySQL) and optimizing complex queries and stored procedures.',
-    'Implementing unit testing and mocking frameworks to ensure high code quality and reliability.',
-    'Translating business requirements into technical solutions aligned with company goals.',
-    'Maintaining and enhancing POS and merchant-based platforms across web and mobile.',
-    'Participating in code reviews, debugging production issues, and improving system performance.',
-  ],
-},
-  {
-    role: 'Java Full-Stack Developer',
-    company: 'Reverside',
-    period: '',
-    bullets: [
-      'Designing and implementing Java-based applications.',
-      'Analyzing user requirements to inform application design.',
-      'Defining application objectives and functionality.',
-      'Aligning application design with business goals.',
-      'Developing and testing software.',
-      'Supporting clients with existing systems.',
-    ],
-  },
-  {
-    role: 'Java Full-Stack Developer Trainee',
-    company: 'Geeks4Learning',
-    period: '',
-    description:
-      'Completed a 12-month rigorous blended-learning program at Geeks4Learning, covering industry-relevant theoretical and practical training, using internationally renowned proficiency assessment tools. Covered: Soft Skills / Workplace Skills (verbal and non-verbal communication, work ethics, HR processes, teamwork); MICT Seta accredited training material (NQF 5 Systems Development); Geeks4Learning industry-relevant courses aligned with Microsoft (Advanced Programming Concepts, Front-End Development, etc.); Project-Simulation based on a problem statement, applying theoretical understanding practically to simulate a real-life project using relevant tools and technologies.',
-  },
-  {
-    role: 'React Front-End Developer Trainee',
-    company: 'MLab (CodeTribe)',
-    period: '',
-    description:
-      'Completed a 12-month training program at MLab (CodeTribe), covering industry-relevant theoretical and practical training, using internationally renowned proficiency assessment tools. Covered: Develop project concepts and maintain optimal workflow; complete detailed programming and development tasks for public and internal websites; carry out quality assurance tests to discover errors and optimize usability.',
-  },
-]
+const jobs = profile.experience
 </script>
 
 <style scoped>

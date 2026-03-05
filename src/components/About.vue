@@ -2,74 +2,70 @@
   <section class="about" id="about" ref="sectionRef">
     <h2 class="section-title" :class="{ visible: isVisible }">About <span class="accent">Me</span></h2>
     <div class="about-inner">
-      <p class="lead" :class="{ visible: isVisible }">
-        I am <strong>Philasande Bhani</strong>, a young graduate of {{ age }} years. I hold a National Diploma in Information Technology
-        and am determined to become one of the best in the field.
-      </p>
-      <p class="about-p" :class="{ visible: isVisible }">
-        Over the past {{ yearsOfExperience }} years, I worked as a Developer at a software development firm, where I gained valuable insights
-        into how successful companies operate. During this time, I honed my skills in developing and maintaining software
-        programs, as well as making improvements to enhance functionality.
-      </p>
+      <p class="lead" :class="{ visible: isVisible }" v-html="leadHtml"></p>
+      <p
+        v-for="(para, i) in profile.about.paragraphs"
+        :key="i"
+        class="about-p"
+        :class="{ visible: isVisible }"
+        v-html="replacePlaceholders(para)"
+      ></p>
 
       <div class="tech-stack" :class="{ visible: isVisible }">
         <h3>Technical expertise</h3>
         <ul>
-          <li><strong>Frontend:</strong> JavaScript, Angular 4+ with TypeScript, React, React Native, HTML5, CSS3, Vue.js</li>
-          <li><strong>Backend:</strong> Java, Spring, Hibernate, Spring Boot, Node.js, Python 3</li>
-          <li><strong>Databases:</strong> MySQL, MongoDB</li>
-          <li><strong>Other:</strong> Software Development Methodologies, Software Development Tools, Containerization, DevOps foundations</li>
+          <li v-for="group in profile.about.techStack" :key="group.label">
+            <strong>{{ group.label }}:</strong> {{ group.items.join(', ') }}
+          </li>
         </ul>
       </div>
-
-      <p class="about-p" :class="{ visible: isVisible }">
-        I possess strong problem-solving skills and the ability to efficiently work with both technical and abstract concepts.
-        My communication skills are excellent, allowing me to interact effectively with clients to provide outstanding customer service.
-        After discussions with clients, I can identify ways to improve performance, speed, and usability and relay these insights
-        to programmers for implementation.
-      </p>
-      <p class="about-p" :class="{ visible: isVisible }">
-        I have a keen ability to troubleshoot technical issues, identify their root causes, and implement solutions. I can explain
-        complex technical concepts to both professionals and non-technical users. Attention to detail is one of my strengths,
-        and I can remain focused on tasks for long periods to get the job done. I actively stay updated on the latest industry
-        changes to continue growing professionally.
-      </p>
 
       <div class="preferences-grid">
         <div class="pref-card" :class="{ visible: isVisible }">
           <h3>Location & remote preferences</h3>
-          <p><strong>Remote</strong> — I can work anywhere if it is fully remote.</p>
-          <p><strong>Hybrid</strong> — In every South African province.</p>
-          <p><strong>Local</strong> — In every South African province.</p>
+          <p><strong>Remote</strong> — {{ profile.about.preferences.remote }}</p>
+          <p><strong>Hybrid</strong> — {{ profile.about.preferences.hybrid }}</p>
+          <p><strong>Local</strong> — {{ profile.about.preferences.local }}</p>
         </div>
         <div class="pref-card" :class="{ visible: isVisible }">
           <h3>Work authorisation</h3>
-          <p><strong>Africa:</strong> 100% authorised</p>
-          <p><strong>Around the globe:</strong> Remote</p>
+          <p><strong>Africa:</strong> {{ profile.about.preferences.workAuthAfrica }}</p>
+          <p><strong>Around the globe:</strong> {{ profile.about.preferences.workAuthGlobal }}</p>
         </div>
       </div>
 
       <div class="ideal-job" :class="{ visible: isVisible }">
         <h3>Ideal next job</h3>
-        <p>As a <strong>Software Developer</strong>, I would like to assist the development team with all aspects of software design and coding.
-          I would like my primary role to be learning the codebase, attending design meetings, writing basic code, fixing bugs,
-          and assisting the Development Manager in all design-related tasks.</p>
-        <p>I am most proficient in using <strong>Java</strong> and <strong>Spring Boot</strong>, and I would like to work with
-          <strong>Microsoft Azure</strong> to manage my projects. I am looking for a company that will aid in my development
-          and support my career growth. <em>Notice period: 1 week.</em></p>
+        <p v-html="idealJobHtml"></p>
+        <p><em>{{ profile.about.idealJob.noticePeriod }}</em></p>
       </div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useScrollReveal } from '../composables/useScrollReveal'
 import { useProfileCalculations } from '../composables/useProfileCalculations'
+import { portfolioProfile } from '../data'
 
+const profile = portfolioProfile
 const sectionRef = ref<HTMLElement | null>(null)
 const isVisible = useScrollReveal(sectionRef)
 const { age, yearsOfExperience } = useProfileCalculations()
+
+function replacePlaceholders(text: string): string {
+  return text
+    .replace(/\{fullName\}/g, profile.personal.fullName)
+    .replace(/\{age\}/g, String(age.value))
+    .replace(/\{yearsOfExperience\}/g, String(yearsOfExperience.value))
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+}
+
+const leadHtml = computed(() => replacePlaceholders(profile.about.leadParagraph))
+const idealJobHtml = computed(() =>
+  profile.about.idealJob.description.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+)
 </script>
 
 <style scoped>

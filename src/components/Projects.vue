@@ -13,7 +13,7 @@
           :class="{ visible: isVisible }"
           :style="{ transitionDelay: `${i * 0.08}s` }"
         >
-          <ProjectCardContent :project="project" />
+          <ProjectCardContent :project="project" @open-lightbox="openLightbox" />
         </article>
       </div>
     </div>
@@ -29,7 +29,7 @@
           :class="{ visible: isVisible }"
           :style="{ transitionDelay: `${i * 0.08}s` }"
         >
-          <ProjectCardContent :project="project" />
+          <ProjectCardContent :project="project" @open-lightbox="openLightbox" />
         </article>
       </div>
     </div>
@@ -45,12 +45,12 @@
           :class="{ visible: isVisible }"
           :style="{ transitionDelay: `${i * 0.08}s` }"
         >
-          <ProjectCardContent :project="project" />
+          <ProjectCardContent :project="project" @open-lightbox="openLightbox" />
         </article>
       </div>
     </div>
 
-    <!-- Lightbox -->
+    <!-- Lightbox (shared state so any button can close it before doing its action) -->
     <Teleport to="body">
       <Transition name="lightbox">
         <div
@@ -58,7 +58,7 @@
           class="lightbox-overlay"
           @click.self="closeLightbox"
         >
-          <button class="lightbox-close" @click="closeLightbox">×</button>
+          <button type="button" class="lightbox-close" @click="closeLightbox">×</button>
           <div class="lightbox-content">
             <img
               :src="lightboxImage.src"
@@ -77,30 +77,15 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useScrollReveal } from '../composables/useScrollReveal'
+import { useLightbox } from '../composables/useLightbox'
+import { portfolioProfile } from '../data'
+import ProjectCardContent from './ProjectCardContent.vue'
 
-import highSchoolImg from '../assets/highSchool.png'
-import hotelManagementImg from '../assets/hotel-management.png'
-import covid19Img from '../assets/covid-19.png'
-import calculatorImg from '../assets/calculator.png'
-import weatherImg from '../assets/wWeather.png'
-import jobHunterImg from '../assets/job-hunter.png'
-import posImg from '../assets/point-of-sales.png'
-import mechConnectClientDash from '../assets/mech-connect-client-dash.png'
-
+const profile = portfolioProfile
 const sectionRef = ref<HTMLElement | null>(null)
 const isVisible = useScrollReveal(sectionRef)
 
-const lightboxImage = ref<{ src: string; alt: string } | null>(null)
-
-function openLightbox(src: string, alt: string) {
-  lightboxImage.value = { src, alt }
-  document.body.style.overflow = 'hidden'
-}
-
-function closeLightbox() {
-  lightboxImage.value = null
-  document.body.style.overflow = ''
-}
+const { lightboxImage, openLightbox, closeLightbox } = useLightbox()
 
 function onKeydown(e: KeyboardEvent) {
   if (e.key === 'Escape') closeLightbox()
@@ -112,91 +97,18 @@ onUnmounted(() => {
   document.body.style.overflow = ''
 })
 
-const projects = [
-  {
-    name: 'MechConnect',
-    category: 'Web App',
-    image: mechConnectClientDash,
-    tech: 'Vue 3, Spring Boot, React Native',
-    description: 'Full-stack service marketplace connecting customers with mechanics.',
-    tags: ['Vue 3', 'Spring Boot', 'React Native'],
-    link: 'https://mechanic-management-806bi8xrb-pbhanina-5058s-projects.vercel.app/',
-  },
-  {
-    name: 'High School Application System',
-    category: 'Web App',
-    image: highSchoolImg,
-    tech: 'AngularJS, Spring Boot',
-    description: 'Streamlines the school admission process.',
-    tags: ['AngularJS', 'Spring Boot'],
-    link: '#',
-  },
-  {
-    name: 'Hotel Management System',
-    category: 'Web App',
-    image: hotelManagementImg,
-    tech: 'Spring Boot, Angular, MySQL',
-    description: 'Hotel booking and room availability system.',
-    tags: ['Spring Boot', 'Angular', 'MySQL'],
-    link: '#',
-  },
-  {
-    name: 'Covid-19 App',
-    category: 'Mobile App',
-    image: covid19Img,
-    tech: 'ReactJS',
-    description: 'Covid-19 statistics for South Africa and global data.',
-    tags: ['ReactJS'],
-    link: '#',
-  },
-  {
-    name: 'Weather App',
-    category: 'Mobile App',
-    image: weatherImg,
-    tech: 'React Native',
-    description: 'Mobile app showing weather conditions and forecasts.',
-    tags: ['React Native'],
-    link: '#',
-  },
-  {
-    name: 'Job Finder',
-    category: 'Mobile App',
-    image: jobHunterImg,
-    tech: 'React Native',
-    description: 'Browse and apply for Software Developer jobs.',
-    tags: ['React Native'],
-    link: '#',
-  },
-  {
-    name: 'Point of Sale (POS)',
-    category: 'Mobile App',
-    image: posImg,
-    tech: 'Android (Java), SQLite',
-    description: 'Sell digital products like airtime and data.',
-    tags: ['Android', 'Java'],
-    link: '#',
-  },
-  {
-    name: 'Simple Calculator',
-    category: 'Desktop App',
-    image: calculatorImg,
-    tech: 'VB.NET, MS Access',
-    description: 'Performs percentage and average calculations.',
-    tags: ['VB.NET'],
-    link: '#',
-  },
-]
+const projects = computed(() => profile.projects)
 
 const webApps = computed(() =>
-  projects.filter(p => p.category === 'Web App')
+  projects.value.filter(p => p.category === 'Web App')
 )
 
 const mobileApps = computed(() =>
-  projects.filter(p => p.category === 'Mobile App')
+  projects.value.filter(p => p.category === 'Mobile App')
 )
 
 const desktopApps = computed(() =>
-  projects.filter(p => p.category === 'Desktop App')
+  projects.value.filter(p => p.category === 'Desktop App')
 )
 </script>
 

@@ -6,38 +6,49 @@
     </div>
     <div class="hero-content">
       <p class="greeting hero-anim">Hi, I'm</p>
-      <h1 class="name hero-anim">PHILASANDE BHANI</h1>
-      <p class="tagline hero-anim">Software Developer | Java / Full Stack Developer</p>
-      <p class="location hero-anim">Gauteng, South Africa · {{ yearsOfExperience }}+ years of working experience</p>
+      <h1 class="name hero-anim">{{ profile.personal.fullName.toUpperCase() }}</h1>
+      <p class="tagline hero-anim">{{ profile.personal.tagline }}</p>
+      <p class="location hero-anim">{{ profile.personal.location }} · {{ yearsOfExperience }}+ years of working experience</p>
       <p class="salary hero-anim">Preferred salary: {{ preferredSalaryMonthlyFormatted }}+ monthly, or {{ preferredSalaryAnnualFormatted }}+ annually</p>
-      <p class="intro hero-anim">
-        With a <strong>National Diploma in Information Technology</strong> and experience as a Java Developer,
-        I bring a strong foundation in software development and problem-solving. My expertise spans
-        <strong>Java</strong>, <strong>Spring Boot</strong>, <strong>Angular</strong>, <strong>React</strong>,
-        <strong>Vue</strong>, and <strong>Android</strong>, enabling me to develop and maintain high-quality software solutions.
-      </p>
+      <p class="intro hero-anim" v-html="heroIntroHtml"></p>
       <div class="contact-mini hero-anim">
-        <a href="tel:+27782141216">078 214 1216</a>
+        <a :href="'tel:' + profile.contact.phone.replace(/\s/g, '')" @click="closeIfOpen()">{{ profile.contact.phone }}</a>
         <span class="dot">·</span>
-        <a href="mailto:pbhanina@gmail.com">pbhanina@gmail.com</a>
+        <a :href="'mailto:' + profile.contact.email" @click="closeIfOpen()">{{ profile.contact.email }}</a>
         <span class="dot">·</span>
-        <a href="https://www.linkedin.com/in/mr-p-bhani/" target="_blank" rel="noopener">LinkedIn</a>
+        <a :href="profile.contact.linkedinUrl" target="_blank" rel="noopener" @click="closeIfOpen()">LinkedIn</a>
       </div>
       <div class="cta hero-anim">
-        <a href="#projects" class="btn btn-primary">See My Work</a>
-        <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+        <a href="#projects" class="btn btn-primary" @click.prevent="handleAnchorClick('#projects')">See My Work</a>
+        <a href="#contact" class="btn btn-secondary" @click.prevent="handleAnchorClick('#contact')">Get in Touch</a>
       </div>
     </div>
-    <a href="#about" class="scroll-hint hero-anim" aria-label="Scroll to about">
+    <a href="#about" class="scroll-hint hero-anim" aria-label="Scroll to about" @click.prevent="handleAnchorClick('#about')">
       <span></span>
     </a>
   </section>
 </template>
 
 <script setup lang="ts">
+import { computed, nextTick } from 'vue'
 import { useProfileCalculations } from '../composables/useProfileCalculations'
+import { useLightbox } from '../composables/useLightbox'
+import { portfolioProfile } from '../data'
 
+const profile = portfolioProfile
+const { closeIfOpen } = useLightbox()
 const { yearsOfExperience, preferredSalaryMonthlyFormatted, preferredSalaryAnnualFormatted } = useProfileCalculations()
+
+/** Close lightbox if open, then scroll to section */
+function handleAnchorClick(hash: string) {
+  closeIfOpen()
+  nextTick(() => document.querySelector(hash)?.scrollIntoView({ behavior: 'smooth' }))
+}
+
+// Support **bold** in hero intro
+const heroIntroHtml = computed(() =>
+  profile.heroIntro.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+)
 </script>
 
 <style scoped>

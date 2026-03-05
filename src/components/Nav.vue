@@ -1,29 +1,44 @@
 <template>
   <header class="nav" :class="{ scrolled: isScrolled }">
     <div class="nav-inner">
-      <a href="#" class="logo">PB</a>
+      <a href="#" class="logo" @click.prevent="handleNavClick('#')">PB</a>
       <button class="menu-btn" aria-label="Toggle menu" @click="open = !open">
         <span></span>
         <span></span>
         <span></span>
       </button>
       <nav class="links" :class="{ open }">
-        <a href="#about" @click="open = false">About</a>
-        <a href="#experience" @click="open = false">Work History</a>
-        <a href="#qualifications" @click="open = false">Education</a>
-        <a href="#projects" @click="open = false">Projects</a>
-        <a href="#skills" @click="open = false">Skills</a>
-        <a href="#contact" @click="open = false">Contact</a>
+        <a href="#about" @click.prevent="handleNavClick('#about')">About</a>
+        <a href="#experience" @click.prevent="handleNavClick('#experience')">Work History</a>
+        <a href="#qualifications" @click.prevent="handleNavClick('#qualifications')">Education</a>
+        <a href="#projects" @click.prevent="handleNavClick('#projects')">Projects</a>
+        <a href="#skills" @click.prevent="handleNavClick('#skills')">Skills</a>
+        <a href="#contact" @click.prevent="handleNavClick('#contact')">Contact</a>
       </nav>
     </div>
   </header>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, nextTick, onMounted, onUnmounted } from 'vue'
+import { useLightbox } from '../composables/useLightbox'
 
+const { closeIfOpen } = useLightbox()
 const isScrolled = ref(false)
 const open = ref(false)
+
+/** Close lightbox if open, then perform navigation (so zoomed image is removed first) */
+function handleNavClick(hash: string) {
+  open.value = false
+  closeIfOpen()
+  nextTick(() => {
+    if (hash === '#') {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    } else {
+      document.querySelector(hash)?.scrollIntoView({ behavior: 'smooth' })
+    }
+  })
+}
 
 function onScroll() {
   isScrolled.value = window.scrollY > 40

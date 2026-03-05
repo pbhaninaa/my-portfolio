@@ -5,36 +5,37 @@
       Open to new opportunities. Reach out via email or phone, or connect on LinkedIn.
     </p>
     <div class="links">
-      <a href="mailto:pbhanina@gmail.com" class="contact-link" :class="{ visible: isVisible }" aria-label="Email">
+      <a :href="'mailto:' + profile.contact.email" class="contact-link" :class="{ visible: isVisible }" aria-label="Email" @click="closeIfOpen()">
         <span class="label">Email</span>
-        <span class="value">pbhanina@gmail.com</span>
+        <span class="value">{{ profile.contact.email }}</span>
       </a>
-      <a href="tel:+27782141216" class="contact-link" :class="{ visible: isVisible }" aria-label="Phone">
+      <a :href="'tel:' + profile.contact.phone.replace(/\s/g, '')" class="contact-link" :class="{ visible: isVisible }" aria-label="Phone" @click="closeIfOpen()">
         <span class="label">Phone</span>
-        <span class="value">078 214 1216</span>
+        <span class="value">{{ profile.contact.phone }}</span>
       </a>
       <a
-        href="https://www.linkedin.com/in/mr-p-bhani/"
+        :href="profile.contact.linkedinUrl"
         target="_blank"
         rel="noopener"
         class="contact-link"
         :class="{ visible: isVisible }"
         aria-label="LinkedIn"
+        @click="closeIfOpen()"
       >
         <span class="label">LinkedIn</span>
-        <span class="value">linkedin.com/in/mr-p-bhani</span>
+        <span class="value">{{ profile.contact.linkedinDisplay }}</span>
       </a>
     </div>
-    <div class="references" :class="{ visible: isVisible }">
+    <div v-if="profile.references?.length" class="references" :class="{ visible: isVisible }">
       <h3 class="ref-title">References</h3>
       <ul>
-        <li>Lebogang Tlatsi – <a href="mailto:lebogangt@cappayments.co.za">lebogangt@cappayments.co.za</a> / 082 317 9184</li>
-        <li>Odireleng Ramela – <a href="mailto:Odireleng.ramela@geeks4learning.com">Odireleng.ramela@geeks4learning.com</a> / 011 998 1960</li>
-        <li>Kabelo Gaotlhaelwe – <a href="mailto:kabelo@mlab.co.za">kabelo@mlab.co.za</a> / 079 339 5980</li>
+        <li v-for="ref in profile.references" :key="ref.email">
+          {{ ref.name }} – <a :href="'mailto:' + ref.email" @click="closeIfOpen()">{{ ref.email }}</a> / {{ ref.phone }}
+        </li>
       </ul>
     </div>
     <footer class="footer" :class="{ visible: isVisible }">
-      <p>© {{ new Date().getFullYear() }} Philasande Bhani.</p>
+      <p>© {{ new Date().getFullYear() }} {{ profile.personal.fullName }}.</p>
     </footer>
   </section>
 </template>
@@ -42,7 +43,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useScrollReveal } from '../composables/useScrollReveal'
+import { useLightbox } from '../composables/useLightbox'
+import { portfolioProfile } from '../data'
 
+const profile = portfolioProfile
+const { closeIfOpen } = useLightbox()
 const sectionRef = ref<HTMLElement | null>(null)
 const isVisible = useScrollReveal(sectionRef)
 </script>

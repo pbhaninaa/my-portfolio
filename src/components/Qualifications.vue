@@ -14,10 +14,10 @@
         <p class="qual-year">{{ q.year }}</p>
       </div>
     </div>
-    <div class="awards" :class="{ visible: isVisible }">
+    <div v-if="profile.awards?.length" class="awards" :class="{ visible: isVisible }">
       <h3 class="awards-title">Awards & Recognition</h3>
       <ul>
-        <li>Under The Rock Star Award – Received at closing function, 2025</li>
+        <li v-for="(award, i) in profile.awards" :key="i">{{ award }}</li>
       </ul>
     </div>
   </section>
@@ -26,15 +26,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useScrollReveal } from '../composables/useScrollReveal'
+import { portfolioProfile } from '../data'
 
+const profile = portfolioProfile
 const sectionRef = ref<HTMLElement | null>(null)
 const isVisible = useScrollReveal(sectionRef)
 
-const qualifications = [
-  { name: 'System development NQF5', institution: 'Learnership', year: 'January 2022 – December 2022' },
-  { name: 'National Diploma in Information Technology', institution: 'Walter Sisulu University', year: 'February 2017 – November 2020' },
-  { name: 'Matric / Grade 12', institution: 'Ntabezulu Senior Secondary School', year: 'January 2013 – November 2015' },
-]
+const qualifications = profile.education
 </script>
 
 <style scoped>

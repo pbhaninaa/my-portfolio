@@ -32,32 +32,20 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useScrollReveal } from '../composables/useScrollReveal'
-import { SKILLS_IN_PROJECTS } from '../data/profileConstants'
+import { portfolioProfile } from '../data'
 
+const profile = portfolioProfile
 const sectionRef = ref<HTMLElement | null>(null)
 const isVisible = useScrollReveal(sectionRef)
 
-const allSkillGroups = [
-  {
-    category: 'Tools and Technologies',
-    items: ['Git', 'GitHub', 'BitBucket', 'Jira', 'Slack', 'Azure', 'Docker'],
-  },
-  {
-    category: 'Software Development',
-    items: ['Java', 'Spring Boot', 'VB.Net', 'Angular', 'AngularJS', 'React', 'ReactJS', 'Vue 3', 'Vue.js', 'React Native', 'Android', 'JavaScript', 'HTML5', 'CSS', 'JWT', 'Stripe'],
-  },
-  {
-    category: 'Databases',
-    items: ['MySQL', 'Microsoft Access', 'SQLite'],
-  },
-]
+const skillsInProjectsSet = computed(() => new Set(profile.skillsInProjects))
 
 // Only show skills that appear in portfolio projects
 const skillGroups = computed(() =>
-  allSkillGroups
+  profile.skillGroups
     .map((group) => ({
       ...group,
-      items: group.items.filter((skill) => SKILLS_IN_PROJECTS.has(skill)),
+      items: group.items.filter((skill) => skillsInProjectsSet.value.has(skill)),
     }))
     .filter((group) => group.items.length > 0)
 )
