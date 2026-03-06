@@ -12,6 +12,7 @@ import weatherImg from '../assets/wWeather.png'
 import jobHunterImg from '../assets/job-hunter.png'
 import posImg from '../assets/point-of-sales.png'
 import mechConnectClientDash from '../assets/mech-connect-client-dash.png'
+import stockPilotImage from '../assets/stock-manager.png'
 
 export const defaultProfile: PortfolioProfile = {
   personal: {
@@ -131,6 +132,16 @@ export const defaultProfile: PortfolioProfile = {
     tags: ['Vue 3', 'Spring Boot', 'React Native', 'MySQL', 'JWT', 'Stripe', 'SSE'],
     link: 'https://mechanic-management-806bi8xrb-pbhanina-5058s-projects.vercel.app/',
   },
+  {
+  name: 'StockPilot',
+  category: 'Mobile App',
+  image: stockPilotImage,
+  tech: 'Java, Android SDK, SQLite, SharedPreferences, Gradle',
+  description:
+    'Offline-first stock and sales management app for taverns and small shops. Includes secure local login, role-based access control for Owner, Manager, and Cashier, inventory tracking, daily sales recording, low-stock monitoring, and owner-managed staff accounts.',
+  tags: ['Android', 'Java', 'SQLite', 'Role-Based Access', 'Inventory', 'Sales Tracking', 'Offline First'],
+  link: 'https://github.com/pbhaninaa/stock-management',
+},
   {
     name: 'High School Application System',
     category: 'Web App',
