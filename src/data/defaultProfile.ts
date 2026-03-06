@@ -63,7 +63,7 @@ export const defaultProfile: PortfolioProfile = {
     {
       role: 'Full Stack Developer (Java, C#, Vue, Android)',
       company: 'Dashpay',
-      period: 'Current Employer',
+      period: '2023 July - Current Employer',
       bullets: [
         'Developing and maintaining full-stack applications using Java (Spring Boot), C# (ASP.NET Core 8 Web API), and Vue.js (Vue 2).',
         'Designing and implementing scalable RESTful APIs with secure authentication (JWT).',
@@ -79,7 +79,7 @@ export const defaultProfile: PortfolioProfile = {
     {
       role: 'Java Full-Stack Developer',
       company: 'Reverside',
-      period: '',
+      period: '2022 June - 2023 July',
       bullets: [
         'Designing and implementing Java-based applications.',
         'Analyzing user requirements to inform application design.',
@@ -92,14 +92,14 @@ export const defaultProfile: PortfolioProfile = {
     {
       role: 'Java Full-Stack Developer Trainee',
       company: 'Geeks4Learning',
-      period: '',
+      period: '2021 December - 2022 June',
       description:
         'Completed a 12-month rigorous blended-learning program at Geeks4Learning, covering industry-relevant theoretical and practical training, using internationally renowned proficiency assessment tools. Covered: Soft Skills / Workplace Skills (verbal and non-verbal communication, work ethics, HR processes, teamwork); MICT Seta accredited training material (NQF 5 Systems Development); Geeks4Learning industry-relevant courses aligned with Microsoft (Advanced Programming Concepts, Front-End Development, etc.); Project-Simulation based on a problem statement, applying theoretical understanding practically to simulate a real-life project using relevant tools and technologies.',
     },
     {
       role: 'React Front-End Developer Trainee',
       company: 'MLab (CodeTribe)',
-      period: '',
+      period: '2020 December - 2021 November',
       description:
         'Completed a 12-month training program at MLab (CodeTribe), covering industry-relevant theoretical and practical training, using internationally renowned proficiency assessment tools. Covered: Develop project concepts and maintain optimal workflow; complete detailed programming and development tasks for public and internal websites; carry out quality assurance tests to discover errors and optimize usability.',
     },
