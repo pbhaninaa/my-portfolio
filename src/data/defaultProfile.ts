@@ -13,6 +13,7 @@ import jobHunterImg from '../assets/job-hunter.png'
 import posImg from '../assets/point-of-sales.png'
 import mechConnectClientDash from '../assets/mech-connect-client-dash.png'
 import stockPilotImage from '../assets/stock-manager.png'
+import loanSharkImage from '../assets/loan_shark.png'
 
 export const defaultProfile: PortfolioProfile = {
   personal: {
@@ -133,6 +134,16 @@ export const defaultProfile: PortfolioProfile = {
     link: 'https://mechanic-management-806bi8xrb-pbhanina-5058s-projects.vercel.app/',
   },
   {
+  name: 'Loan Shark',
+  category: 'Web App',
+  image: loanSharkImage,  // add your image import
+  tech: 'Vue 3, Vuetify 3, Spring Boot, MySQL, Flyway, JWT, Pinia',
+  description:
+    'Loan management system for micro-lenders: client onboarding with KYC (SA ID, selfie, location), configurable interest and grace period, repayment tracking, business capital pool, installment schedules with pay-by-installment, owner/cashier roles, audit logging, and client self-service portal.',
+  tags: ['Vue 3', 'Vuetify', 'Spring Boot', 'MySQL', 'KYC', 'Loans', 'Repayments', 'Role-Based Access'],
+  link: 'https://github.com/pbhaninaa/loan-shark',  // set to your repo
+},
+  {
   name: 'StockPilot',
   category: 'Mobile App',
   image: stockPilotImage,
@@ -142,6 +153,7 @@ export const defaultProfile: PortfolioProfile = {
   tags: ['Android', 'Java', 'SQLite', 'Role-Based Access', 'Inventory', 'Sales Tracking', 'Offline First'],
   link: 'https://github.com/pbhaninaa/stock-management',
 },
+
   {
     name: 'High School Application System',
     category: 'Web App',
