@@ -132,7 +132,7 @@ export const defaultProfile: PortfolioProfile = {
     description:
       'Full-stack service marketplace connecting customers with mechanics and car wash providers. Includes real-time service requests, role-based dashboards (client, mechanic, car wash, admin), Stripe payments with platform fees, and notifications.',
     tags: ['Vue 3', 'Spring Boot', 'React Native', 'MySQL', 'JWT', 'Stripe', 'SSE'],
-    link: 'https://mechanic-management-806bi8xrb-pbhanina-5058s-projects.vercel.app/',
+    link: 'https://mechanic-management.vercel.app/',
   },
   {
   name: 'Loan Shark',
@@ -142,7 +142,7 @@ export const defaultProfile: PortfolioProfile = {
   description:
     'Loan management system for micro-lenders: client onboarding with KYC (SA ID, selfie, location), configurable interest and grace period, repayment tracking, business capital pool, installment schedules with pay-by-installment, owner/cashier roles, audit logging, and client self-service portal.',
   tags: ['Vue 3', 'Vuetify', 'Spring Boot', 'MySQL', 'KYC', 'Loans', 'Repayments', 'Role-Based Access'],
-  link: 'https://loan-shark-au0mgw7qh-pbhanina-5058s-projects.vercel.app/',  // set to your repo
+  link: 'https://loan-shark-sepia.vercel.app/',  // set to your repo
 },
   {
   name: 'StockPilot',
