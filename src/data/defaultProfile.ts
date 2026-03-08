@@ -14,6 +14,7 @@ import posImg from '../assets/point-of-sales.png'
 import mechConnectClientDash from '../assets/mech-connect-client-dash.png'
 import stockPilotImage from '../assets/stock-manager.png'
 import loanSharkImage from '../assets/loan_shark.png'
+import jobSearchImg from '../assets/job-search.png'
 
 export const defaultProfile: PortfolioProfile = {
   personal: {
@@ -197,12 +198,22 @@ export const defaultProfile: PortfolioProfile = {
   {
     name: 'Job Finder',
     category: 'Mobile App',
-    image: jobHunterImg,
+    image: jobSearchImg,
     tech: 'React Native, JSearch API',
     description:
       'Mobile app for discovering Software Developer jobs. Users can search for positions, view job details, and apply through the application.',
     tags: ['React Native', 'JSearch API'],
     link: 'https://github.com/pbhaninaa/Job-finder-app.React',
+  },
+  {
+    name: 'Job Finder',
+    category: 'Mobile App',
+    image: jobHunterImg,
+    tech: 'Android, Java',
+    description:
+      'Mobile app for discovering Software Developer jobs. Users can search for positions, view job details, and apply through the application.',
+    tags: ['Android','Java', 'JSearch API'],
+    link: 'https://github.com/pbhaninaa/Android_JobSearchApp',
   },
   {
     name: 'Point of Sale (POS)',
