@@ -141,7 +141,7 @@ export const defaultProfile: PortfolioProfile = {
   description:
     'Loan management system for micro-lenders: client onboarding with KYC (SA ID, selfie, location), configurable interest and grace period, repayment tracking, business capital pool, installment schedules with pay-by-installment, owner/cashier roles, audit logging, and client self-service portal.',
   tags: ['Vue 3', 'Vuetify', 'Spring Boot', 'MySQL', 'KYC', 'Loans', 'Repayments', 'Role-Based Access'],
-  link: 'https://github.com/pbhaninaa/loan-shark',  // set to your repo
+  link: 'https://loan-shark-au0mgw7qh-pbhanina-5058s-projects.vercel.app/',  // set to your repo
 },
   {
   name: 'StockPilot',
@@ -162,7 +162,7 @@ export const defaultProfile: PortfolioProfile = {
     description:
       'Online school admission system that allows learners to search schools, register, and apply. Administrators can log in to review and manage student applications.',
     tags: ['AngularJS', 'Spring Boot', 'Java'],
-    link: '#',
+    link: 'https://github.com/pbhaninaa/HotelsFinder-Frontend',
   },
   {
     name: 'Hotel Management System',
@@ -182,7 +182,7 @@ export const defaultProfile: PortfolioProfile = {
     description:
       'Web application displaying Covid-19 statistics for South Africa and global data, including healthcare contact options and detailed pandemic information.',
     tags: ['ReactJS'],
-    link: '#',
+    link: 'https://snack.expo.dev/@pbhaninaa/covid-19',
   },
   {
     name: 'Weather App',
@@ -192,7 +192,7 @@ export const defaultProfile: PortfolioProfile = {
     description:
       'Mobile weather application that detects the user’s location and displays current weather conditions along with multi-day forecasts.',
     tags: ['React Native'],
-    link: '#',
+    link: 'https://snack.expo.dev/@pbhaninaa/weather-app',
   },
   {
     name: 'Job Finder',
@@ -202,7 +202,7 @@ export const defaultProfile: PortfolioProfile = {
     description:
       'Mobile app for discovering Software Developer jobs. Users can search for positions, view job details, and apply through the application.',
     tags: ['React Native', 'JSearch API'],
-    link: '#',
+    link: 'https://github.com/pbhaninaa/Job-finder-app.React',
   },
   {
     name: 'Point of Sale (POS)',
@@ -212,7 +212,7 @@ export const defaultProfile: PortfolioProfile = {
     description:
       'Android POS application that allows merchants to sell digital products such as airtime and data, manage transactions, and view sales history.',
     tags: ['Android', 'Java', 'SQLite'],
-    link: '#',
+    link: 'https://github.com/pbhaninaa/Airtime_App',
   },
   {
     name: 'Simple Calculator',
