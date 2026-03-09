@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://pbhaninaa.github.io/my-portfolio/sitemap.xml

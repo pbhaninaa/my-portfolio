@@ -1,6 +1,6 @@
 <template>
   <section class="about" id="about" ref="sectionRef">
-    <h2 class="section-title" :class="{ visible: isVisible }">About <span class="accent">Me</span></h2>
+    <h2 class="section-title" :class="{ visible: isVisible }">About <span class="accent">{{ profile.personal.fullName }}</span></h2>
     <div class="about-inner">
       <p class="lead" :class="{ visible: isVisible }" v-html="leadHtml"></p>
       <p

@@ -6,7 +6,7 @@
     </div>
     <div class="hero-content">
       <p class="greeting hero-anim">Hi, I'm</p>
-      <h1 class="name hero-anim">{{ profile.personal.fullName.toUpperCase() }}</h1>
+      <h1 class="name hero-anim">{{ profile.personal.fullName }} – Software Developer</h1>
       <p class="tagline hero-anim">{{ profile.personal.tagline }}</p>
       <p class="location hero-anim">{{ profile.personal.location }} · {{ yearsOfExperience }}+ years of working experience</p>
       <p class="salary hero-anim">Preferred salary: {{ preferredSalaryMonthlyFormatted }}+ monthly, or {{ preferredSalaryAnnualFormatted }}+ annually</p>
