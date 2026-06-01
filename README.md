@@ -15,6 +15,10 @@ The floating **?** button opens a chat that answers questions about Philasande (
 
 See `.env.example` for reference.
 
+## Deployment
+
+See **[DEPLOYMENT.md](DEPLOYMENT.md)** for GitHub Pages and optional OpenAI secret.
+
 ## Deploy (GitHub Pages)
 
 The repo includes a GitHub Action (`.github/workflows/deploy.yml`) that builds and deploys the site on every push to `main`.
